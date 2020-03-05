@@ -1,0 +1,23 @@
+{
+  "name": "node_developer_profile",
+  "version": "1.0.0",
+  "description": "Creates a PDF file of a basic resume",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bclark07/node_developer_profile.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bclark07/node_developer_profile/issues"
+  },
+  "homepage": "https://github.com/bclark07/node_developer_profile#readme",
+  "dependencies": {
+    "inquirer": "^7.0.6"
+  }
+}

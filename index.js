@@ -26,26 +26,23 @@ function promptUser() {
 
       const queryUrl = `https://api.github.com/users/${data.github}`;
       axios.get(queryUrl).then(function(res) {
-        const prof_img = res.data.avatar_url; //profile image
-        const username = res.data.login; //github username
-        // const location =  res.data.location; User location via Google Maps (link)
+        const info = {};
+        info.name = res.data.name;
+        // const prof_img = res.data.avatar_url;
+        info.img = res.data.avatar_url; //profile image
+        info.username = res.data.login; //github username
+        info.location = res.data.location; //change with User location via Google Maps (link)?
         // const = User GitHub profile (link)
-        const blog = res.data.blog; //link to blog
-        const bio = res.data.bio; //bio from profile
-        const repos = res.data.public_repos; //Number of public repositories
-        const followers = res.data.followers; //Number of followers
-        // const stars = res.data.public_gists; //Number of GitHub stars - this is not right - may have to create array from other git request and get length of it
-        const following = res.data.following; //Number person is following
-
-        //anvaka should have 54 stars
-        // console.log(prof_img);
-        // console.log(username);
-        // console.log(blog);
-        // console.log(bio);
-        // console.log(repos);
-        // console.log(followers);
-        // // console.log(stars);
-        // console.log(following);
+        info.blog = res.data.blog; //link to blog
+        info.bio = res.data.bio; //bio from profile
+        info.repos = res.data.public_repos; //Number of public repositories
+        info.followers = res.data.followers; //Number of followers
+        // const stars = res.data.public_gists; //Number of GitHub stars - this is not right - may have to create array from other git request and get length of it - test with anvaka
+        info.following = res.data.following; //Number person is following
+        info.color = data.color;
+        console.log(info);
+        const html = generateHTML(info);
+        return writeFileAsync("index.html", html);
       });
     });
 }
@@ -77,7 +74,6 @@ const colors = {
   }
 };
 
-// <img class="photo-header img src=${answers.prof_img}/>
 function generateHTML(answers) {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -228,14 +224,16 @@ function generateHTML(answers) {
   <body>
     <div class="jumbotron jumbotron-fluid">
     <div class="container photo-header">
-    Here we are It is a big day!
+   <img src=${answers.img}/>
    
     <div class="container">
       <h1 class="display-4">Hi! My name is ${answers.name}</h1>
       <p class="lead">I am from ${answers.location}.</p>
       <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
       <ul class="list-group">
-        <li class="list-group-item">My GitHub username is ${answers.github}</li>
+        <li class="list-group-item">My GitHub username is ${
+          answers.username
+        }</li>
         <li class="list-group-item">LinkedIn: ${answers.linkedin}</li>
       </ul>
     </div>
@@ -244,20 +242,4 @@ function generateHTML(answers) {
       </html>`;
 }
 
-// promptUser(); //generates the question in the console
-
-//have to extend from other document?
-
-promptUser()
-  .then(function(answers) {
-    console.log(answers);
-    const html = generateHTML(answers);
-
-    return writeFileAsync("index.html", html);
-  })
-  .then(function() {
-    console.log("Successfully wrote to index.html");
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
+promptUser();

@@ -4,6 +4,7 @@ const fs = require("fs");
 const util = require("util");
 
 const generateHTML = require("./generateHTML");
+const generateCSS = require("./generateCSS");
 
 const writeFileAsync = util.promisify(fs.writeFile);
 const info = {};
@@ -51,7 +52,10 @@ function promptUser() {
 
         console.log(info);
         const html = generateHTML(info);
-        return writeFileAsync("index.html", html);
+        const css = generateCSS(data);
+        return (
+          writeFileAsync("index.html", html), writeFileAsync("style.css", css)
+        );
       });
     });
 }

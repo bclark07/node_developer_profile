@@ -24,3 +24,5 @@ The resume is generated with the following information:
 - Number of followers
 - Number of GitHub stars
 - Number of users following
+
+To view how the application generates an html file, click here: https://github.com/bclark07/node_developer_profile/blob/master/dev_profile.gif
